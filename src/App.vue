@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterView } from 'vue-router';
+import { onMounted } from 'vue';
+import { initFlowbite } from 'flowbite';
+onMounted(() => {
+  initFlowbite();
+});
 </script>
 
 <template>
-  <header>
-    <div>
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-  <hr />
   <RouterView />
 </template>

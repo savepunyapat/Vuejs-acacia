@@ -1,21 +1,101 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-const title = 'Hello from AboutView';
-const pic_alt = 'alt for pic';
-const pic_src =
-  'data:image/webp;base64,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';
-const isLogin = ref(true);
-const pets = ['dog', 'cat', 'fish'];
-const log = () => {
-  isLogin.value = !isLogin.value;
-  console.log(isLogin.value);
-  return isLogin.value;
-};
+import { ref, reactive } from 'vue';
+import SiteHeader from '../components/SiteHeader.vue';
 </script>
 
 <template>
+  <SiteHeader />
+  <div class="content-center mx-auto">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-8.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-9.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-10.jpg"
+          alt=""
+        />
+      </div>
+      <div>
+        <img
+          class="h-auto max-w-full rounded-lg"
+          src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-11.jpg"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+  <!--   
   <div>
-    <h1>This is an about page:{{ title }}</h1>
+    <h1>This is an about page:{{ data.username.toUpperCase() }}</h1>
     <img :src="pic_src" :alt="pic_alt" />
     <h1 v-if="isLogin">if true</h1>
     <h1 v-else>if false</h1>
@@ -23,5 +103,5 @@ const log = () => {
       <p>{{ item }}</p>
     </div>
     <button @click="log">Log</button>
-  </div>
+  </div> -->
 </template>
