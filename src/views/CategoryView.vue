@@ -1,13 +1,20 @@
 <script setup lang="ts">
 import SiteHeader from '../components/SiteHeader.vue';
 import { onMounted, ref } from 'vue';
-import { http } from '../services/services.ts';
+import { http } from '../services/services';
+import { useToast } from 'vue-toast-notification';
+const toast = useToast();
 const categories = ref<any>([]);
+const isCategoriesEmpty = ref<boolean>(true);
 const getAllCategories = async () => {
   const response = await http.get('/v1/categories');
   console.log(response.data);
   categories.value = response.data;
   console.log(categories.value[1]);
+  // let instance = toast.success('ness');
+  if (categories.value) {
+    isCategoriesEmpty.value = false;
+  }
 };
 onMounted(() => {
   getAllCategories();
@@ -21,14 +28,15 @@ onMounted(() => {
 
       <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead
-          class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+          class="text-xl text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
         >
           <tr>
             <th scope="col" class="px-6 py-3 text-lg">id ประเภทสินค้า</th>
             <th scope="col" class="px-6 py-3 text-lg">ชื่อประเภทสินค้า</th>
           </tr>
         </thead>
-        <tbody>
+        <h1 v-if="isCategoriesEmpty" class="text-center font-bold w-auto">ไม่พบข้อมูล</h1>
+        <tbody v-else>
           <tr
             v-for="category in categories"
             :key="category"
